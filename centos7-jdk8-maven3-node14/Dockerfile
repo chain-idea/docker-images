@@ -22,7 +22,7 @@ RUN mkdir -p /usr/share/maven /usr/share/maven/ref \
   && ln -s /usr/share/maven/bin/mvn /usr/bin/mvn
 
 
-# 安装node js  https://github.com/nodejs/docker-node/blob/f14cf35127b04cec97f01e473d59a0df03ac00d1/14/buster/Dockerfile
+# 安装node js 和yarn  https://github.com/nodejs/docker-node/blob/f14cf35127b04cec97f01e473d59a0df03ac00d1/14/buster/Dockerfile
 ENV NODE_VERSION 14.15.4
 ENV ARCH=x64
 RUN  curl -fsSLO --compressed "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-$ARCH.tar.xz" \
