@@ -14,9 +14,9 @@ ENV JAVA_HOME /usr/lib/jvm/java-1.8.0-openjdk
 
 # 安装maven https://github.com/carlossg/docker-maven/blob/master/openjdk-8/Dockerfile
 ARG MAVEN_VERSION=3.6.3
-ARG BASE_URL=https://apache.osuosl.org/maven/maven-3/${MAVEN_VERSION}/binaries
+ARG MAVEN_URL=https://mirrors.bfsu.edu.cn/apache/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz
 RUN mkdir -p /usr/share/maven /usr/share/maven/ref \
-  && curl -fsSL -o /tmp/apache-maven.tar.gz ${BASE_URL}/apache-maven-${MAVEN_VERSION}-bin.tar.gz \
+  && curl -fsSL -o /tmp/apache-maven.tar.gz $MAVEN_URL \
   && tar -xzf /tmp/apache-maven.tar.gz -C /usr/share/maven --strip-components=1 \
   && rm -f /tmp/apache-maven.tar.gz \
   && ln -s /usr/share/maven/bin/mvn /usr/bin/mvn
@@ -27,12 +27,27 @@ ENV NODE_VERSION 14.15.4
 ENV ARCH=x64
 RUN  curl -fsSLO --compressed "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-$ARCH.tar.xz" \
       && tar -xJf "node-v$NODE_VERSION-linux-$ARCH.tar.xz" -C /usr/local --strip-components=1 --no-same-owner \
-      && rm "node-v$NODE_VERSION-linux-$ARCH.tar.xz" SHASUMS256.txt.asc SHASUMS256.txt \
-      && ln -s /usr/local/bin/node /usr/local/bin/nodejs \
+      && rm "node-v$NODE_VERSION-linux-$ARCH.tar.xz"  \
+      && ln -s /usr/local/bin/node /usr/local/bin/nodejs
 	 
-RUN npm config set registry https://registry.npm.taobao.org && npm install -g yarn \
-	&& yarn config set registry https://registry.npm.taobao.org  && yarn config set sass_binary_site http://cdn.npm.taobao.org/dist/node-sass   \
-	&& npm install umi -g \
+
+
+ENV YARN_VERSION 1.22.5
+RUN  curl -fsSLO --compressed "https://yarnpkg.com/downloads/$YARN_VERSION/yarn-v$YARN_VERSION.tar.gz" \
+  && mkdir -p /opt \
+  && tar -xzf yarn-v$YARN_VERSION.tar.gz -C /opt/ \
+  && ln -s /opt/yarn-v$YARN_VERSION/bin/yarn /usr/local/bin/yarn \
+  && ln -s /opt/yarn-v$YARN_VERSION/bin/yarnpkg /usr/local/bin/yarnpkg \
+  &&  yarn-v$YARN_VERSION.tar.gz \
+  # smoke test
+  &&
+
 
 RUN mvn -version
 RUN java -version
+RUN npm --version
+RUN yarn --version
+
+RUN npm config set registry https://registry.npm.taobao.org && npm install -g yarn \
+	&& yarn config set registry https://registry.npm.taobao.org  && yarn config set sass_binary_site http://cdn.npm.taobao.org/dist/node-sass   \
+	&& npm install umi -g \
