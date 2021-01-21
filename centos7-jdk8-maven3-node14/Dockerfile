@@ -4,11 +4,11 @@ FROM centos:7
 
 # 安装java
 RUN  cd /etc/yum.repos.d/ \
-    && rm -rf * \
-    && curl http://mirrors.aliyun.com/repo/Centos-7.repo -o Centos-7.repo \
-    && curl http://mirrors.aliyun.com/repo/epel-7.repo -o epel-7.repo \
-	&& yum -y install java-1.8.0-openjdk java-1.8.0-openjdk-devel \
-	&& yum clean all
+  && rm -rf * \
+  && curl http://mirrors.aliyun.com/repo/Centos-7.repo -o Centos-7.repo \
+  && curl http://mirrors.aliyun.com/repo/epel-7.repo -o epel-7.repo \
+  && yum -y install java-1.8.0-openjdk java-1.8.0-openjdk-devel \
+  && yum clean all
 ENV JAVA_HOME /usr/lib/jvm/java-1.8.0-openjdk
 
 
@@ -25,10 +25,10 @@ RUN mkdir -p /usr/share/maven /usr/share/maven/ref \
 # 安装node js 和yarn  https://github.com/nodejs/docker-node/blob/f14cf35127b04cec97f01e473d59a0df03ac00d1/14/buster/Dockerfile
 ENV NODE_VERSION 14.15.4
 ENV ARCH=x64
-RUN  curl -fsSLO --compressed "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-$ARCH.tar.xz" \
-      && tar -xJf "node-v$NODE_VERSION-linux-$ARCH.tar.xz" -C /usr/local --strip-components=1 --no-same-owner \
-      && rm "node-v$NODE_VERSION-linux-$ARCH.tar.xz"  \
-      && ln -s /usr/local/bin/node /usr/local/bin/nodejs
+RUN curl -fsSLO --compressed "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-$ARCH.tar.xz" \
+     && tar -xJf "node-v$NODE_VERSION-linux-$ARCH.tar.xz" -C /usr/local --strip-components=1 --no-same-owner \
+     && rm "node-v$NODE_VERSION-linux-$ARCH.tar.xz"  \
+     && ln -s /usr/local/bin/node /usr/local/bin/nodejs
 RUN npm install -g yarn
 RUN npm config set registry https://registry.npm.taobao.org
 RUN	yarn config set registry https://registry.npm.taobao.org
