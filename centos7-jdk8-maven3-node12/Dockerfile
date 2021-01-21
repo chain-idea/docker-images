@@ -8,7 +8,8 @@ RUN  cd /etc/yum.repos.d/ && rm -rf * && curl http://mirrors.aliyun.com/repo/Cen
 	&& yarn config set registry https://registry.npm.taobao.org  && yarn config set sass_binary_site http://cdn.npm.taobao.org/dist/node-sass   \
 	&& npm install umi -g \
 	&& yum clean all
-
+	
+ARG MAVEN_VERSION=3.6.3
 RUN wget https://mirrors.bfsu.edu.cn/apache/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz \
     && tar xzvf *.gz && rm -rf *.gz  && mv apache-maven-${MAVEN_VERSION} maven \
     && mv maven /usr/local/bin \
@@ -17,6 +18,6 @@ RUN wget https://mirrors.bfsu.edu.cn/apache/maven/maven-3/${MAVEN_VERSION}/binar
 
 ENV JAVA_HOME /usr/lib/jvm/java-1.8.0-openjdk
 
-ARG MAVEN_VERSION=3.6.3
+
 #RUN mvn -version
 #RUN java -version
