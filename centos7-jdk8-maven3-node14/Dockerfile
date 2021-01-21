@@ -14,7 +14,7 @@ ENV JAVA_HOME /usr/lib/jvm/java-1.8.0-openjdk
 
 # 安装maven https://github.com/carlossg/docker-maven/blob/master/openjdk-8/Dockerfile
 ARG MAVEN_VERSION=3.6.3
-ARG MAVEN_URL=https://mirrors.bfsu.edu.cn/apache/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz
+ARG MAVEN_URL=https://mirrors.bfsu.edu.cn/apache/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz
 RUN mkdir -p /usr/share/maven /usr/share/maven/ref \
   && curl -fsSL -o /tmp/apache-maven.tar.gz $MAVEN_URL \
   && tar -xzf /tmp/apache-maven.tar.gz -C /usr/share/maven --strip-components=1 \
