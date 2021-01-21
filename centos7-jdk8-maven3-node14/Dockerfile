@@ -1,6 +1,7 @@
 # BASE 基础镜像
 FROM centos:7
 
+MAINTAINER jiangtao1921@qq.com
 
 # 安装java
 RUN  cd /etc/yum.repos.d/ \
