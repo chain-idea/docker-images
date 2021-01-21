@@ -29,9 +29,7 @@ RUN  curl -fsSLO --compressed "https://nodejs.org/dist/v$NODE_VERSION/node-v$NOD
       && tar -xJf "node-v$NODE_VERSION-linux-$ARCH.tar.xz" -C /usr/local --strip-components=1 --no-same-owner \
       && rm "node-v$NODE_VERSION-linux-$ARCH.tar.xz"  \
       && ln -s /usr/local/bin/node /usr/local/bin/nodejs
-	 
 RUN npm install -g yarn
-
-
-RUN npm config set registry https://registry.npm.taobao.org && npm install -g yarn \
-	&& yarn config set registry https://registry.npm.taobao.org  && yarn config set sass_binary_site http://cdn.npm.taobao.org/dist/node-sass
+RUN npm config set registry https://registry.npm.taobao.org
+RUN	yarn config set registry https://registry.npm.taobao.org
+RUN	yarn config set sass_binary_site http://cdn.npm.taobao.org/dist/node-sass
